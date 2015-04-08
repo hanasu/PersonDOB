@@ -6,8 +6,9 @@
 
 char string[80]; //to hold each line entered in the person file
 const char delim[2] = ","; //the separator for strtok()
-char* token; //to hold the tokens generated from person file
-int i = 0; //loop index
+char string_store[80];
+char* token;
+int i = 0, j = 0; //loop indexes
 int temp; //to hold the int found by fscanf()
 int pcount = 0, dcount = 0; //array indexes for person/date arrays
 int num_read = 1; //counter for date reading
@@ -73,9 +74,8 @@ int main() {
 	while(fgets(string,80,per_fp)!=NULL) {
 		for(i = 0; i < 5; i++) {			
 			if(i == 0) {
-				token = strtok(string,delim);
-				puts(token);
-				people[pcount].lname = token;			
+				people[pcount].lname = strdup(strtok(string,delim));
+				printf("%s",people[pcount].lname);
 			}			
 			if(i == 1) {
 				token = strtok(NULL,delim);
@@ -99,13 +99,11 @@ int main() {
 			}
 		}
 
-		//people[pcount].dob = *dates[pcount];
+		//people[pcount].dob.month = dates[pcount].month;
+		//people[pcount].dob.day = dates[pcount].day;
+		//people[pcount].dob.year = dates[pcount].year;
 		pcount++; //increment person array index
 	}
 
-	for(i = 0; i < 17; i++) {
-		puts(people[7].lname);
-	}
-	
 	return 0;
 }
